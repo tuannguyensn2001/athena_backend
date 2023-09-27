@@ -5,4 +5,6 @@ class User < ApplicationRecord
   enum role: { teacher: "teacher", student: "student" }
 
   has_one :profile, dependent: :destroy
+  has_many :members, dependent: :destroy
+  has_many :workshops, through: :members
 end

@@ -59,3 +59,4 @@ gem "paranoia"
 
 
 gem "grape", "~> 1.8"
+gem 'grape_on_rails_routes'

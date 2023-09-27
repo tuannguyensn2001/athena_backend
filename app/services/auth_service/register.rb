@@ -20,7 +20,7 @@ module AuthService
       user.profile = Profile.new(
         username: @params[:username],
         school: @params[:school],
-        birthday: Time.at(@params[:birthday].to_i).utc,
+        birthday: @params[:birthday],
         avatar_url: "https://img.freepik.com/free-icon/user_318-563642.jpg",
       )
 

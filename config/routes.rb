@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "home#index"
 
-  post "/api/v1/auth/register", to: "auth#register"
-  post "/api/v1/auth/login", to: "auth#login"
+  # post "/api/v1/auth/register", to: "auth#register"
+  # post "/api/v1/auth/login", to: "auth#login"
+
+  mount Api::Base => '/'
 end

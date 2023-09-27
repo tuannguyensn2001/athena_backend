@@ -1,7 +1,9 @@
 class BaseService
+  attr_reader :current_user
 
   def initialize(*args)
     @errors = []
+    @current_user = nil
   end
 
   def add_error(error)
@@ -24,6 +26,10 @@ class BaseService
 
   def errors
     @errors
+  end
+
+  def auth_context
+    AuthContext.new(user: current_user)
   end
 
 end
