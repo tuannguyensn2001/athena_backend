@@ -57,3 +57,5 @@ gem 'jwt'
 gem 'active_model_serializers', '~> 0.10.2'
 gem "paranoia"
 
+
+gem "grape", "~> 1.8"
