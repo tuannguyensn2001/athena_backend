@@ -52,4 +52,8 @@ group :development, :test do
   gem 'faker'
 end
 
+gem 'rswag'
+gem 'jwt'
+gem 'active_model_serializers', '~> 0.10.2'
+gem "paranoia"
 
