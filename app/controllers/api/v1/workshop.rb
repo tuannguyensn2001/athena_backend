@@ -33,6 +33,44 @@ module Api::V1
           error!({ message: service.errors }, 400)
         end
       end
+
+      desc 'Get Own Workshop'
+      params do
+        optional :is_show, type: Boolean, default: true, desc: 'Is show'
+      end
+
+      get :own do
+        service = WorkshopService::GetOwn.new(current_user, params)
+        result = service.call
+        if service.success?
+          {
+            message: "success",
+            data: result
+          }
+        else
+          error!({ message: "internal server" }, 500)
+        end
+      end
+
+      desc "Get By Code"
+      params do
+        requires :code, type: String, desc: 'Code'
+      end
+
+      get 'code/:code' do
+        service = WorkshopService::GetByCode.new(current_user, params)
+        result = service.call
+
+        if service.success?
+          {
+            message: "success",
+            data: result
+          }
+        else
+          error!({ message: service.errors }, 500)
+        end
+      end
+
     end
   end
 end

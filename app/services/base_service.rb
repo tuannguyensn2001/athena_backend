@@ -1,5 +1,5 @@
 class BaseService
-  attr_reader :current_user
+  attr_reader :current_user, :current_workshop
 
   def initialize(*args)
     @errors = []
@@ -29,7 +29,7 @@ class BaseService
   end
 
   def auth_context
-    AuthContext.new(user: current_user)
+    AuthContext.new(user: current_user, workshop: current_workshop)
   end
 
 end

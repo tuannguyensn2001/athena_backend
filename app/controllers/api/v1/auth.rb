@@ -50,9 +50,8 @@ module Api::V1
       desc 'Get profile'
       get :me do
         authenticate!
-        logger.info current_user
         {
-          message: UserSerializer.new(current_user)
+          data: UserSerializer.new(current_user)
         }
       end
     end

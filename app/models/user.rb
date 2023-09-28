@@ -7,4 +7,8 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :workshops, through: :members
+
+  def verified?
+    self.email_verified_at.present?
+  end
 end

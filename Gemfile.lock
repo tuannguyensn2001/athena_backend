@@ -109,6 +109,8 @@ GEM
       railties (>= 5.0.0)
     faker (3.2.0)
       i18n (>= 1.8.11, < 2)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     grape (1.8.0)
@@ -271,6 +273,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
+  figaro
   grape (~> 1.8)
   grape_on_rails_routes
   jwt
