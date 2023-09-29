@@ -61,3 +61,5 @@ gem "paranoia"
 gem "grape", "~> 1.8"
 gem 'grape_on_rails_routes'
 gem "figaro"
+
+gem "karafka", ">= 2.2.0"
