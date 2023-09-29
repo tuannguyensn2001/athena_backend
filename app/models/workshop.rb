@@ -7,6 +7,7 @@ class Workshop < ApplicationRecord
 
   has_many :members, dependent: :destroy
   has_many :users, through: :members
+  has_many :posts, dependent: :destroy
 
   Workshop.columns.each do |column|
     if column.type == :boolean

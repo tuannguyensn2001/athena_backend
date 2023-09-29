@@ -32,4 +32,8 @@ class BaseService
     AuthContext.new(user: current_user, workshop: current_workshop)
   end
 
+  def is_member?
+    WorkshopPolicy.new(auth_context).is_member?
+  end
+
 end
