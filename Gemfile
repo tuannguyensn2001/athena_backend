@@ -63,3 +63,4 @@ gem 'grape_on_rails_routes'
 gem "figaro"
 
 gem "karafka", ">= 2.2.0"
+gem "pusher"

@@ -28,12 +28,22 @@ class BaseService
     @errors
   end
 
+  private
+
   def auth_context
     AuthContext.new(user: current_user, workshop: current_workshop)
   end
 
+  def workshop_policy
+    @workshop_policy ||= WorkshopPolicy.new(auth_context)
+  end
+
   def is_member?
-    WorkshopPolicy.new(auth_context).is_member?
+    workshop_policy.is_member?
+  end
+
+  def is_teacher_in_workshop?
+    workshop_policy.is_teacher?
   end
 
 end

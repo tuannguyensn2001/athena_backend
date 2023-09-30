@@ -18,6 +18,8 @@ module NewsfeedService
 
       post.save!
 
+      CreateNewPostJob.perform_later(post.id)
+
       post
 
     rescue StandardError => e

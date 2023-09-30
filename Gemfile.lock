@@ -123,6 +123,7 @@ GEM
       rack-accept
     grape_on_rails_routes (0.3.2)
       rails (>= 3.1.1)
+    httpclient (2.8.3)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -163,6 +164,7 @@ GEM
     mini_portile2 (2.8.4)
     minitest (5.20.0)
     msgpack (1.7.2)
+    multi_json (1.15.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     mustermann-grape (1.0.2)
@@ -189,6 +191,11 @@ GEM
     public_suffix (5.0.3)
     puma (5.6.7)
       nio4r (~> 2.0)
+    pusher (2.0.3)
+      httpclient (~> 2.8)
+      multi_json (~> 1.15)
+      pusher-signature (~> 0.1.8)
+    pusher-signature (0.1.8)
     racc (1.7.1)
     rack (2.2.8)
     rack-accept (0.4.5)
@@ -299,6 +306,7 @@ DEPENDENCIES
   paranoia
   pg (~> 1.1)
   puma (~> 5.0)
+  pusher
   rack-cors
   rails (~> 7.0.7, >= 7.0.7.2)
   rspec-rails (~> 6.0.0)
