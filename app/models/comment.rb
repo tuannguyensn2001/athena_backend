@@ -1,11 +1,9 @@
-class Post < ApplicationRecord
+class Comment < ApplicationRecord
   acts_as_paranoid
-
   validates :content, presence: true
   validates :user_id, presence: true
-  validates :workshop_id, presence: true
+  validates :post_id, presence: true
 
-  has_many :comments
   belongs_to :user
-  belongs_to :workshop
+  belongs_to :post
 end
