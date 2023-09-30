@@ -13,6 +13,9 @@ module NewsfeedService
       if @params[:cursor] > 0
         query = query.where("id < ?", @params[:cursor])
       end
+      if @params[:is_pinned]
+        query = query.where.not(pinned_at: nil)
+      end
 
       next_cursor = if query.length > 0
                       query.last.id

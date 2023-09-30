@@ -24,6 +24,10 @@ class BaseService
     !error?
   end
 
+  def call
+    raise NotImplementedError
+  end
+
   def errors
     @errors
   end

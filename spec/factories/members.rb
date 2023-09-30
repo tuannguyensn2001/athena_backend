@@ -3,6 +3,6 @@ FactoryBot.define do
     user_id { 1 }
     workshop_id { 1 }
     role { "MyString" }
-    status { "MyString" }
+    sequence(:status) { [:active, :pending].sample }
   end
 end

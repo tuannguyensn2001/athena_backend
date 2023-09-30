@@ -32,6 +32,7 @@ module Api::V1
           requires :workshop_id, type: Integer, desc: "Workshop id"
           optional :cursor, type: Integer, desc: 'Cursor', default: 0
           optional :limit, type: Integer, desc: 'Limit', default: 3
+          optional :is_pinned, type: Boolean, desc: 'Pinned', default: false
         end
         get "workshops/:workshop_id" do
           service = NewsfeedService::GetPostInWorkshop.new(current_user, params)
@@ -62,6 +63,23 @@ module Api::V1
             error!({ message: service.errors }, 500)
           end
         end
+
+        desc "Pin post"
+        params do
+          requires :post_id, type: Integer
+        end
+        put 'pin' do
+          service = NewsfeedService::PinPost.new(current_user, params)
+          service.call
+          if service.success?
+            {
+              message: "success"
+            }
+          else
+            error!({ message: service.errors.first }, 500)
+          end
+        end
+
       end
 
       resources :comments do
