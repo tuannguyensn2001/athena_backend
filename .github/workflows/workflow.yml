@@ -29,8 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Checkout
-      - name: install postgres
-        run: sudo apt-get -yqq install libpq-dev build-essential
+#      - name: install postgres
+#        run: sudo apt-get -yqq install libpq-dev build-essential
       - name: setup ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -43,9 +43,3 @@ jobs:
         run: bundle exec rails db:setup
       - name: run test
         run: bundle exec rspec
-
-
-#      - name: Create Test Database
-#        run: bundle exec rails db:migrate RAILS_ENV=test
-#      - name: Run RSpec Tests
-#        run: bundle exec rspec
