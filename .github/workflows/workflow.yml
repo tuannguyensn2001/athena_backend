@@ -8,44 +8,29 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
-    container:
-      image: ruby:3.2.2
     env:
       RAILS_ENV: test
       RACK_ENV: test
-      DATABASE_USR: tuannguyen
-      DATABASE_PASSWORD: ""
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: tuannguyen
-          POSTGRES_PASSWORD: ""
           POSTGRES_DB: athena_backend_test
-          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_PASSWORD: postgres
         ports:
           - "5432:5432"
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v4
         name: Checkout
-#      - name: setup ruby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          ruby-version: 3.2.2
+      - name: setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
       - name: install bundler
         run: gem install bundler
       - name: install dependencies
         run: bundle install
-#      - name: Wait for Database
-#        run: |
-#          while ! nc -z localhost 5432; do
-#            echo "Waiting for PostgreSQL to start..."
-#            sleep 1
-#          done
-#          echo "PostgreSQL is up and running."
       - name: show env
         run: |
           echo $DATABASE_USR
@@ -54,6 +39,11 @@ jobs:
           echo $DATABASE_PORT
       - name: test connection
         run: bundle exec rake test_db_connection:test_connection
+        env:
+          DATABASE_USR: postgres
+          DATABASE_PASSWORD: postgres
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
 #      - name: Create Test Database
 #        run: bundle exec rails db:migrate RAILS_ENV=test
 #      - name: Run RSpec Tests

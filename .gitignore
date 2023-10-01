@@ -34,3 +34,4 @@
 /config/credentials/development.key
 
 pg_data
+node_modules
