@@ -33,11 +33,8 @@ jobs:
         run: bundle install
       - name: show env
         run: |
-          echo $DATABASE_USR
-          echo $DATABASE_PASSWORD
-          echo $DATABASE_HOST
-          echo $DATABASE_PORT
-          sudo apt-get -yqq install libpq-dev
+          apt-get update -qq
+          apt-get install -y build-essential libpq-dev
       - name: test connection
         run: RAILS_ENV=test bundle exec rails db:migrate
         env:
