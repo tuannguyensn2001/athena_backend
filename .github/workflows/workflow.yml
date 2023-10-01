@@ -29,8 +29,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Checkout
-#      - name: install postgres
-#        run: sudo apt-get -yqq install libpq-dev build-essential
       - name: setup ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -43,3 +41,21 @@ jobs:
         run: bundle exec rails db:setup
       - name: run test
         run: bundle exec rspec
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+      - name: setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+      - name: install bundler
+        run: gem install bundler
+      - name: install dependencies
+        run: bundle install
+      - name: run rubocop
+        run: bundle exec rubocop
+
+
+
