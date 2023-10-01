@@ -11,16 +11,16 @@ jobs:
     env:
       RAILS_ENV: test
       RACK_ENV: test
-      DATABASE_USR: athena
-      DATABASE_PASSWORD: athena
+      DATABASE_USR: tuannguyen
+      DATABASE_PASSWORD:
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: athena
-          POSTGRES_PASSWORD: athena
+          POSTGRES_USER: tuannguyen
+          POSTGRES_PASSWORD:
           POSTGRES_DB: athena_backend_test
         ports:
           - 5432:5432
