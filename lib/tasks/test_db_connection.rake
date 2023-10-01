@@ -4,6 +4,10 @@ namespace :test_db_connection do
 
     return false unless Rails.env.test?
 
+    Rails.logger.info ENV.fetch("DATABASE_USR") { "tuannguyen" }
+    Rails.logger.info ENV.fetch("DATABASE_PASSWORD") { "" }
+    Rails.logger.info ENV.fetch("DATABASE_HOST") { "localhost" }
+    Rails.logger.info ENV.fetch("DATABASE_PORT") { "5432" }
     Rails.logger.info ActiveRecord::Base.connection_db_config
     # Rails.logger.info Rails.application.config_for(:database)['test']
 
