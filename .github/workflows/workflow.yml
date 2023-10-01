@@ -37,8 +37,9 @@ jobs:
           echo $DATABASE_PASSWORD
           echo $DATABASE_HOST
           echo $DATABASE_PORT
+          sudo apt-get -yqq install libpq-dev
       - name: test connection
-        run: bundle exec rake test_db_connection:test_connection
+        run: RAILS_ENV=test bundle exec rails db:migrate
         env:
           DATABASE_USR: postgres
           DATABASE_PASSWORD: postgres
