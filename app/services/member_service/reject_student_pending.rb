@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MemberService
   class RejectStudentPending < BaseService
     def initialize(current_user, params)
@@ -8,16 +10,15 @@ module MemberService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error "forbidden" unless is_teacher_in_workshop?
+      return add_error 'forbidden' unless is_teacher_in_workshop?
 
       if reject_all?
         reject_all
       else
         reject_one
       end
-
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
 
     private
@@ -34,5 +35,4 @@ module MemberService
       @params[:reject_all]
     end
   end
-
 end

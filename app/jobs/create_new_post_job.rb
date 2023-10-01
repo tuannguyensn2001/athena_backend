@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNewPostJob < ApplicationJob
   queue_as :create_new_post
 

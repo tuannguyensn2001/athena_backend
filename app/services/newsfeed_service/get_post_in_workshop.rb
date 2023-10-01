@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NewsfeedService
   class GetPostInWorkshop < BaseService
     def initialize(current_user, params)
@@ -8,16 +10,13 @@ module NewsfeedService
 
     def call
       @current_workshop = Workshop.find @params[:workshop_id]
-      return add_error "forbidden" unless is_member?
-      query = @current_workshop.posts.includes(user: :profile).limit(@params[:limit]).order(id: :desc)
-      if @params[:cursor] > 0
-        query = query.where("id < ?", @params[:cursor])
-      end
-      if @params[:is_pinned]
-        query = query.where.not(pinned_at: nil)
-      end
+      return add_error 'forbidden' unless is_member?
 
-      next_cursor = if query.length > 0
+      query = @current_workshop.posts.includes(user: :profile).limit(@params[:limit]).order(id: :desc)
+      query = query.where('id < ?', @params[:cursor]) if (@params[:cursor]).positive?
+      query = query.where.not(pinned_at: nil) if @params[:is_pinned]
+
+      next_cursor = if !query.empty?
                       query.last.id
                     else
                       0
@@ -25,7 +24,7 @@ module NewsfeedService
       {
         data: query,
         meta: {
-          next_cursor: next_cursor,
+          next_cursor:,
           total: query.length
         }
       }

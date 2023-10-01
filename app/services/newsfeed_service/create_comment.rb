@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NewsfeedService
   class CreateComment < BaseService
     def initialize(current_user, params)
@@ -9,7 +11,7 @@ module NewsfeedService
     def call
       post = Post.find @params[:post_id]
       @current_workshop = post.workshop
-      return add_error "forbidden" unless is_member?
+      return add_error 'forbidden' unless is_member?
 
       comment = Comment.new(
         user_id: @current_user&.id,
@@ -19,9 +21,8 @@ module NewsfeedService
       comment.save!
 
       CreateNewCommentJob.perform_later(comment.id)
-
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
   end
 end

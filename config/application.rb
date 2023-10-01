@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,6 +26,6 @@ module AthenaBackend
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.active_job.queue_adapter = :karafka
+    # config.active_job.queue_adapter = :karafka
   end
 end

@@ -1,7 +1,9 @@
-class BaseService
-  attr_reader :current_user, :current_workshop
+# frozen_string_literal: true
 
-  def initialize(*args)
+class BaseService
+  attr_reader :current_user, :current_workshop, :errors
+
+  def initialize(*_args)
     @errors = []
     @current_user = nil
   end
@@ -28,10 +30,6 @@ class BaseService
     raise NotImplementedError
   end
 
-  def errors
-    @errors
-  end
-
   private
 
   def auth_context
@@ -49,5 +47,4 @@ class BaseService
   def is_teacher_in_workshop?
     workshop_policy.is_teacher?
   end
-
 end

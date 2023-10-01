@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthService
   class Verify < BaseService
     def initialize(token, secret_key = 'athena')
@@ -12,7 +14,7 @@ module AuthService
       user_id = payload[:data][:id]
       User.find(user_id)
     rescue StandardError
-      return add_error('Invalid or expired token.')
+      add_error('Invalid or expired token.')
     end
   end
 end

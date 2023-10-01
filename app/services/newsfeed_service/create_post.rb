@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NewsfeedService
   class CreatePost < BaseService
     def initialize(current_user, params)
@@ -8,7 +10,7 @@ module NewsfeedService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error "forbidden" unless is_member?
+      return add_error 'forbidden' unless is_member?
 
       post = Post.new(
         user_id: @current_user&.id,
@@ -21,10 +23,8 @@ module NewsfeedService
       CreateNewPostJob.perform_later(post.id)
 
       post
-
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
-
   end
 end

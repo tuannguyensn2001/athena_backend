@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MemberService
   class AddStudent < BaseService
     def initialize(current_user, params)
@@ -8,19 +10,20 @@ module MemberService
 
     def call
       @current_workshop = Workshop.find @params[:workshop_id]
-      return add_error "forbidden" unless is_teacher_in_workshop?
+      return add_error 'forbidden' unless is_teacher_in_workshop?
+
       student = User.student.find_by(
-        phone: @params[:phone],
+        phone: @params[:phone]
       )
-      return add_error "student not valid" unless student.present?
+      return add_error 'student not valid' unless student.present?
+
       member = Member.student.find_by(
         user_id: student.id,
-        workshop_id: @current_workshop.id,
+        workshop_id: @current_workshop.id
       )
       if member.present?
-        if member.active?
-          return add_error "member existed"
-        end
+        return add_error 'member existed' if member.active?
+
         if member.pending?
           member.active!
           return
@@ -35,7 +38,7 @@ module MemberService
       )
       member.save!
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
   end
 end

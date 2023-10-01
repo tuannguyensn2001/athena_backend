@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNewCommentJob < ApplicationJob
   queue_as :default
 
@@ -6,6 +8,6 @@ class CreateNewCommentJob < ApplicationJob
     post = comment.post
     payload = CommentSerializer.new(comment)
 
-    Pusher.trigger("newsfeed-post-#{post.id}", "new-comment", payload)
+    Pusher.trigger("newsfeed-post-#{post.id}", 'new-comment', payload)
   end
 end

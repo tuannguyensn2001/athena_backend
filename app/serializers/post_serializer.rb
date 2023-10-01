@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :content, :user_id, :workshop_id, :pinned_at, :created_at, :updated_at, :number_of_comments
 

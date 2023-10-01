@@ -1,28 +1,32 @@
-module Api::V1
-  class Permission < Grape::API
-    version 'v1', using: :path
+# frozen_string_literal: true
 
-    include Api::Authentication
+module Api
+  module V1
+    class Permission < Grape::API
+      version 'v1', using: :path
 
-    before do
-      authenticate!
-    end
+      include Api::Authentication
 
-    resources :permissions do
-      desc 'Get permissions sidebar in workshop'
-      params do
-        requires :workshop_id, type: Integer
+      before do
+        authenticate!
       end
-      get "workshops/:workshop_id/sidebar" do
-        service = PermissionService::GetSidebar.new(current_user, params)
-        result = service.call
-        if service.success?
-          {
-            message: "success",
-            data: result
-          }
-        else
-          error!({ message: service.errors.first }, 500)
+
+      resources :permissions do
+        desc 'Get permissions sidebar in workshop'
+        params do
+          requires :workshop_id, type: Integer
+        end
+        get 'workshops/:workshop_id/sidebar' do
+          service = PermissionService::GetSidebar.new(current_user, params)
+          result = service.call
+          if service.success?
+            {
+              message: 'success',
+              data: result
+            }
+          else
+            error!({ message: service.errors.first }, 500)
+          end
         end
       end
     end

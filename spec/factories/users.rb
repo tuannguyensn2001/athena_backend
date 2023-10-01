@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
-    phone  { Faker::PhoneNumber.phone_number }
+    phone { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
-    password { BCrypt::Password.create("java2001") }
-    role { "teacher" }
+    password { BCrypt::Password.create('java2001') }
+    role { 'teacher' }
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WorkshopService
   class GetByCode < BaseService
     def initialize(current_user, params)
@@ -8,7 +10,8 @@ module WorkshopService
 
     def call
       @current_workshop = Workshop.find_by_code(@params[:code])
-      return add_error "forbidden" unless is_member?
+      return add_error 'forbidden' unless is_member?
+
       @current_workshop
     end
 

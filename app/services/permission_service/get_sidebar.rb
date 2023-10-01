@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PermissionService
   class GetSidebar < BaseService
     def initialize(current_user, params)
@@ -8,12 +10,13 @@ module PermissionService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error "forbidden" unless is_member?
+      return add_error 'forbidden' unless is_member?
+
       {
         member: MemberPolicy.new(auth_context).use?
       }
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
   end
 end

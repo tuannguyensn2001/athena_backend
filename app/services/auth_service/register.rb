@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthService
   class Register < BaseService
     def initialize(params)
@@ -21,19 +23,19 @@ module AuthService
         username: @params[:username],
         school: @params[:school],
         birthday: @params[:birthday],
-        avatar_url: "https://img.freepik.com/free-icon/user_318-563642.jpg",
+        avatar_url: 'https://img.freepik.com/free-icon/user_318-563642.jpg'
       )
 
-      return add_error(user.errors.full_messages) unless user.save
+      add_error(user.errors.full_messages) unless user.save
     rescue StandardError => e
       add_error(e.message)
-      return
+      nil
     end
 
     private
 
     def validate_password
-      if @params[:password].nil? || @params[:password].length.zero?
+      if @params[:password].nil? || @params[:password].empty?
         add_error('Password is required')
         false
       end

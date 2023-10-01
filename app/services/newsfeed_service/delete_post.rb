@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NewsfeedService
   class DeletePost < BaseService
     def initialize(current_user, params)
@@ -9,13 +11,13 @@ module NewsfeedService
     def call
       post = Post.find @params[:post_id]
       @current_workshop = post.workshop
-      return add_error "forbidden" unless is_teacher_in_workshop?
+      return add_error 'forbidden' unless is_teacher_in_workshop?
 
-      post.delete
+      post.destroy!
 
       DeletePostJob.perform_later(@current_workshop.code, @params[:post_id])
     rescue StandardError => e
-      return add_error e.message
+      add_error e.message
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WorkshopService
   class Create < BaseService
     def initialize(user, params)
@@ -7,7 +9,7 @@ module WorkshopService
     end
 
     def call
-      return add_error("forbidden") unless is_teacher?
+      return add_error('forbidden') unless is_teacher?
 
       ActiveRecord::Base.transaction do
         workshop = Workshop.new(
@@ -26,16 +28,16 @@ module WorkshopService
           is_lock: false
         )
         workshop.save!
-        Member.create(
+        member = Member.new(
           user_id: @current_user.id,
           workshop_id: workshop.id,
-          role: "teacher",
+          role: 'teacher',
           status: :active
         )
+        member.save!
       end
-
     rescue StandardError => e
-      return add_error(e.message)
+      add_error(e.message)
     end
 
     private
@@ -50,7 +52,7 @@ module WorkshopService
     end
 
     def default_thumbnail
-      "https://shub-storage.sgp1.cdn.digitaloceanspaces.com/profile_images/44-01.jpg"
+      'https://shub-storage.sgp1.cdn.digitaloceanspaces.com/profile_images/44-01.jpg'
     end
   end
 end
