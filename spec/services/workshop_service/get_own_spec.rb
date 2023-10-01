@@ -18,7 +18,10 @@ describe WorkshopService::GetOwn do
   let!(:member2) do
     FactoryBot.create(:member, user_id: user.id, workshop_id: second_workshop.id, role: user.role, status: :pending)
   end
-  let(:service) { described_class.new(user) }
+  let(:params) do
+    { is_show: true }
+  end
+  let(:service) { described_class.new(user, params) }
 
   describe '#call' do
     context 'valid' do

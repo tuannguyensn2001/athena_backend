@@ -11,7 +11,7 @@ FactoryBot.define do
     approve_show_score { false }
     disable_newsfeed { false }
     limit_policy_teacher { false }
-    is_show { false }
+    is_show { true }
     subject { 'MyString' }
     grade { 'MyString' }
     is_lock { false }
