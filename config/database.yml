@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: athena_backend_production
-  username: athena_backend
-  password: <%= ENV["ATHENA_BACKEND_DATABASE_PASSWORD"] %>
+  username: <%= ENV.fetch("DATABASE_USR") { "tuannguyen" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
+
