@@ -39,13 +39,13 @@ jobs:
         run: gem install bundler
       - name: install dependencies
         run: bundle install
-      - name: Wait for Database
-        run: |
-          while ! nc -z localhost 5432; do
-            echo "Waiting for PostgreSQL to start..."
-            sleep 1
-          done
-          echo "PostgreSQL is up and running."
+#      - name: Wait for Database
+#        run: |
+#          while ! nc -z localhost 5432; do
+#            echo "Waiting for PostgreSQL to start..."
+#            sleep 1
+#          done
+#          echo "PostgreSQL is up and running."
       - name: show env
         run: |
           echo $DATABASE_USR
