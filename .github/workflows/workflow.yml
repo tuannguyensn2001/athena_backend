@@ -43,6 +43,12 @@ jobs:
             sleep 1
           done
           echo "PostgreSQL is up and running."
+      - name: show env
+        run: |
+          echo $DATABASE_USR
+          echo $DATABASE_PASSWORD
+          echo $DATABASE_HOST
+          echo $DATABASE_PORT
       - name: Create Test Database
         run: bundle exec rails db:migrate RAILS_ENV=test
       - name: Run RSpec Tests
