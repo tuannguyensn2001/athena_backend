@@ -44,6 +44,6 @@ jobs:
           done
           echo "PostgreSQL is up and running."
       - name: Create Test Database
-        run: bundle exec rails db:create RAILS_ENV=test
+        run: bundle exec rails db:migrate RAILS_ENV=test
       - name: Run RSpec Tests
         run: bundle exec rspec
