@@ -11,10 +11,6 @@ jobs:
     env:
       RAILS_ENV: test
       RACK_ENV: test
-      DATABASE_USR: tuannguyen
-      DATABASE_PASSWORD: ""
-      DATABASE_HOST: localhost
-      DATABASE_PORT: 5432
     services:
       postgres:
         image: postgres:latest
