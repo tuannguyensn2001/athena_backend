@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NotificationService
   class GetNumberUnseen < BaseService
     def initialize(current_user)

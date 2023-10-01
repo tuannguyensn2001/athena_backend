@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NotificationService
   class UserRead < BaseService
     def initialize(current_user, params)
@@ -9,7 +11,7 @@ module NotificationService
     def call
       list_id = @params[:list_id]
       list_id.each do |id|
-        Notification.where(id: id).update(read_at: Time.now)
+        Notification.where(id:).update(read_at: Time.now)
       end
     rescue StandardError => e
       add_error e.message
