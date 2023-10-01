@@ -11,7 +11,7 @@ case "$1" in
     ;;
   "sidekiq")
     bundle exec rails db:migrate
-    bundle exec sidekiq -C config/sidekiq.yml
+    bundle exec sidekiq
     ;;
   *)
     exec "$@"

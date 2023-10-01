@@ -1,65 +1,87 @@
 version: '3.6'
 
-volumes:
-  zookeeper-data:
-    driver: local
-  zookeeper-log:
-    driver: local
-  kafka-data:
-    driver: local
+#volumes:
+#  zookeeper-data:
+#    driver: local
+#  zookeeper-log:
+#    driver: local
+#  kafka-data:
+#    driver: local
 
 services:
-  akhq:
-    # build:
-    #   context: .
-    image: tchiotludo/akhq
-    environment:
-      AKHQ_CONFIGURATION: |
-        akhq:
-          connections:
-            docker-kafka-server:
-              properties:
-                bootstrap.servers: "kafka:29092"
-    ports:
-      - 8080:8080
-    links:
-      - kafka
+  #  akhq:
+  #    # build:
+  #    #   context: .
+  #    image: tchiotludo/akhq
+  #    environment:
+  #      AKHQ_CONFIGURATION: |
+  #        akhq:
+  #          connections:
+  #            docker-kafka-server:
+  #              properties:
+  #                bootstrap.servers: "kafka:29092"
+  #    ports:
+  #      - 8080:8080
+  #    links:
+  #      - kafka
+  #
+  #  zookeeper:
+  #    image: confluentinc/cp-zookeeper:latest
+  #    volumes:
+  #      - zookeeper-data:/var/lib/zookeeper/data:Z
+  #      - zookeeper-log:/var/lib/zookeeper/log:Z
+  #    environment:
+  #      ZOOKEEPER_CLIENT_PORT: '2181'
+  #      ZOOKEEPER_ADMIN_ENABLE_SERVER: 'false'
+  #      ZOOKEEPER_TICK_TIME: '2000'
+  #
+  #  kafka:
+  #    ports:
+  #      - '9092:9092'
+  #    image: confluentinc/cp-kafka:latest
+  #    volumes:
+  #      - kafka-data:/var/lib/kafka/data:Z
+  #    environment:
+  #      KAFKA_BROKER_ID: '0'
+  #      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+  #      KAFKA_NUM_PARTITIONS: '12'
+  #      KAFKA_COMPRESSION_TYPE: 'gzip'
+  #      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
+  #      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: '1'
+  #      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: '1'
+  #      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
+  #      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+  #      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+  #      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
+  #      KAFKA_JMX_PORT: '9091'
+  #      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+  #      KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.authorizer.AclAuthorizer'
+  #      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
+  #    links:
+  #      - zookeeper
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+  redis:
+    image: redis:latest
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: athena
+      POSTGRES_PASSWORD: athena
+      POSTGRES_DB: athena_backend_production
     volumes:
-      - zookeeper-data:/var/lib/zookeeper/data:Z
-      - zookeeper-log:/var/lib/zookeeper/log:Z
-    environment:
-      ZOOKEEPER_CLIENT_PORT: '2181'
-      ZOOKEEPER_ADMIN_ENABLE_SERVER: 'false'
-      ZOOKEEPER_TICK_TIME: '2000'
+      - ./pg_data:/var/lib/postgresql/data
 
-  kafka:
-    ports:
-      - '9092:9092'
-    image: confluentinc/cp-kafka:latest
-    volumes:
-      - kafka-data:/var/lib/kafka/data:Z
-    environment:
-      KAFKA_BROKER_ID: '0'
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_NUM_PARTITIONS: '12'
-      KAFKA_COMPRESSION_TYPE: 'gzip'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: '1'
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: '1'
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: '1'
-      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
-      KAFKA_JMX_PORT: '9091'
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.authorizer.AclAuthorizer'
-      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
-    links:
-      - zookeeper
-
+  sidekiq:
+    depends_on:
+      - app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - sidekiq
+    env_file:
+      - .env
   app:
     build:
       context: .
@@ -68,12 +90,9 @@ services:
       - "15000:3000"
     command:
       - rails
-    environment:
-      DATABASE_USR: tuannguyensn2001
-      DATABASE_PASSWORD: lYIcxWPF0i4t
-      DATABASE_HOST: ep-cold-sound-41447706-pooler.ap-southeast-1.aws.neon.tech
-      DATABASE_PORT: 5432
-      RAILS_LOG_TO_STDOUT: 'true'
+    env_file:
+      - .env
+
 
 
 
