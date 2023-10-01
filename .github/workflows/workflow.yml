@@ -8,6 +8,14 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_USR: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
+      RAILS_ENV: test
+      RACK_ENV: test
+      DISABLE_SPRING: 1
     services:
       postgres:
         image: postgres:14
@@ -31,16 +39,12 @@ jobs:
         run: gem install bundler
       - name: install dependencies
         run: bundle install
-      - name:  run test
-        run: |
-          bundle exec rails db:setup
-        env:
-          DATABASE_USR: postgres
-          DATABASE_PASSWORD: postgres
-          DATABASE_HOST: localhost
-          DATABASE_PORT: 5432
-          RAILS_ENV: test
-          DISABLE_SPRING: 1
+      - name: setup db
+        run: bundle exec rails db:setup
+      - name: run test
+        run: bundle exec rspec
+
+
 #      - name: Create Test Database
 #        run: bundle exec rails db:migrate RAILS_ENV=test
 #      - name: Run RSpec Tests

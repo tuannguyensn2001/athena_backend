@@ -16,7 +16,7 @@ case "$1" in
       echo $RAILS_ENV
       echo $DATABASE_USR
       bundle exec rails db:setup
-#    bundle exec rspec
+      bundle exec rspec
     ;;
   "sidekiq")
     bundle exec rails db:migrate
