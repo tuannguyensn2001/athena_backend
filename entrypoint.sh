@@ -9,6 +9,15 @@ case "$1" in
     bundle exec rails db:migrate
     bundle exec rails s
     ;;
+  "test")
+      echo $DATABASE_HOST
+      echo $DATABASE_PORT
+      echo $DATABASE_PASSWORD
+      echo $RAILS_ENV
+      echo $DATABASE_USR
+      bundle exec rails db:setup
+#    bundle exec rspec
+    ;;
   "sidekiq")
     bundle exec rails db:migrate
     bundle exec sidekiq
