@@ -83,5 +83,10 @@ production:
   <<: *default
   database: athena_backend_production
   username: <%= ENV.fetch("DATABASE_USR") { "tuannguyen" } %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") { "" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "lYIcxWPF0i4t" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "ep-cold-sound-41447706-pooler.ap-southeast-1.aws.neon.tech" } %>
+
+  # The TCP port the server listens on. Defaults to 5432.
+  # If your server runs on a different port number, change accordingly.
+  port: <%= ENV.fetch("DATABASE_PORT") { "5432" } %>
 

@@ -73,7 +73,7 @@ services:
       DATABASE_PASSWORD: lYIcxWPF0i4t
       DATABASE_HOST: ep-cold-sound-41447706-pooler.ap-southeast-1.aws.neon.tech
       DATABASE_PORT: 5432
-
+      RAILS_LOG_TO_STDOUT: 'true'
 
 
 
