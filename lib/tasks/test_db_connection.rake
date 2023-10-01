@@ -17,8 +17,9 @@ namespace :test_db_connection do
       puts 'Database connection successful!'
     rescue ActiveRecord::NoDatabaseError
       puts 'Database does not exist.'
-    rescue ActiveRecord::ConnectionNotEstablished
+    rescue ActiveRecord::ConnectionNotEstablished => e
       puts 'Failed to establish a database connection.'
+      Rails.logger.info e
     end
   end
 end
