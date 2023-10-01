@@ -8,12 +8,9 @@ on:
 jobs:
   rspec:
     runs-on: ubuntu-latest
-    env:
-      RAILS_ENV: test
-      RACK_ENV: test
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14
         env:
           POSTGRES_DB: athena_backend_test
           POSTGRES_PASSWORD: postgres
@@ -23,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         name: Checkout
+      - name: install postgres
+        run: sudo apt-get -yqq install libpq-dev build-essential
       - name: setup ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -31,17 +30,16 @@ jobs:
         run: gem install bundler
       - name: install dependencies
         run: bundle install
-      - name: show env
+      - name:  run test
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y build-essential libpq-dev
-      - name: test connection
-        run: RAILS_ENV=test bundle exec rails db:migrate
+          bundle exec rails db:setup
         env:
           DATABASE_USR: postgres
           DATABASE_PASSWORD: postgres
           DATABASE_HOST: localhost
           DATABASE_PORT: 5432
+          RAILS_ENV: test
+          DISABLE_SPRING: 1
 #      - name: Create Test Database
 #        run: bundle exec rails db:migrate RAILS_ENV=test
 #      - name: Run RSpec Tests
