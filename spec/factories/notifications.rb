@@ -6,6 +6,6 @@ FactoryBot.define do
     to_user_id { 1 }
     read_at { '2023-10-01 09:19:05' }
     payload { '' }
-    pattern { 'MyString' }
+    pattern { :teacher_notify_to_workshop }
   end
 end

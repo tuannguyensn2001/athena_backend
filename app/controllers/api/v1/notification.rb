@@ -47,6 +47,34 @@ module Api
             end
           end
         end
+
+        desc 'Get number unseen'
+        get :unseen do
+          service = NotificationService::GetNumberUnseen.new(current_user)
+          result = service.call
+          if service.success?
+            {
+              message: 'success',
+              data: result
+            }
+          else
+            error!({ message: service.errors.first }, 500)
+          end
+        end
+
+        desc 'Get own notifications'
+        get do
+          service = NotificationService::GetOwn.new(current_user)
+          result = service.call
+          if service.success?
+            {
+              message: 'success',
+              data: result
+            }
+          else
+            error!({ message: service.errors.first }, 500)
+          end
+        end
       end
     end
   end
