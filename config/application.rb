@@ -27,5 +27,7 @@ module AthenaBackend
     config.api_only = true
 
     # config.active_job.queue_adapter = :karafka
+    config.active_job.queue_adapter = :sidekiq
+
   end
 end
