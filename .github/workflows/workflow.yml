@@ -13,7 +13,7 @@ jobs:
       RACK_ENV: test
       DATABASE_USR: athena
       DATABASE_PASSWORD: athena
-      DATABASE_HOST: postgres
+      DATABASE_HOST: localhost
       DATABASE_PORT: 5432
     services:
       postgres:
@@ -34,3 +34,16 @@ jobs:
           ruby-version: 3.2.2
       - name: install bundler
         run: gem install bundler
+      - name: install dependencies
+        run: bundle install
+      - name: Wait for Database
+        run: |
+          while ! nc -z localhost 5432; do
+            echo "Waiting for PostgreSQL to start..."
+            sleep 1
+          done
+          echo "PostgreSQL is up and running."
+      - name: Create Test Database
+        run: bundle exec rails db:create RAILS_ENV=test
+      - name: Run RSpec Tests
+        run: bundle exec rspec
