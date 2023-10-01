@@ -10,13 +10,13 @@ module WorkshopService
 
     def call
       @current_workshop = Workshop.find_by_code(@params[:code])
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       @current_workshop
     end
 
-    def is_member?
-      WorkshopPolicy.new(auth_context).is_member?
+    def member?
+      WorkshopPolicy.new(auth_context).member?
     end
   end
 end

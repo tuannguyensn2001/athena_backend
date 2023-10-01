@@ -11,7 +11,7 @@ module NewsfeedService
     def call
       post = Post.find @params[:post_id]
       @current_workshop = post.workshop
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       post.comments.includes(user: :profile).order(id: :desc)
     rescue StandardError => e

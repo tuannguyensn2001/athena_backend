@@ -40,11 +40,11 @@ class BaseService
     @workshop_policy ||= WorkshopPolicy.new(auth_context)
   end
 
-  def is_member?
-    workshop_policy.is_member?
+  def member?
+    workshop_policy.member?
   end
 
-  def is_teacher_in_workshop?
-    workshop_policy.is_teacher?
+  def teacher_in_workshop?
+    workshop_policy.teacher?
   end
 end

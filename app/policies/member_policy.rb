@@ -2,6 +2,6 @@
 
 class MemberPolicy < ApplicationPolicy
   def use?
-    WorkshopPolicy.new(@context).is_teacher?
+    WorkshopPolicy.new(@context).teacher?
   end
 end

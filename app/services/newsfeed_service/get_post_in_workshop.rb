@@ -10,7 +10,7 @@ module NewsfeedService
 
     def call
       @current_workshop = Workshop.find @params[:workshop_id]
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       query = @current_workshop.posts.includes(user: :profile).limit(@params[:limit]).order(id: :desc)
       query = query.where('id < ?', @params[:cursor]) if (@params[:cursor]).positive?

@@ -10,7 +10,7 @@ module PermissionService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       {
         member: MemberPolicy.new(auth_context).use?

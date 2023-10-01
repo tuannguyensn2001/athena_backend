@@ -10,7 +10,7 @@ module NewsfeedService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       post = Post.new(
         user_id: @current_user&.id,

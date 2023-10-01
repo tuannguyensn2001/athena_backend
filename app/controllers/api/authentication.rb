@@ -7,7 +7,7 @@ module Api
     included do
       helpers do
         def authenticate!
-          token = get_token_from_header
+          token = token_from_header
 
           service = AuthService::Verify.new(token)
           result = service.call
@@ -20,7 +20,7 @@ module Api
           @current_user
         end
 
-        def get_token_from_header
+        def token_from_header
           raw = request.headers['Authorization']
           return nil if raw.nil?
 

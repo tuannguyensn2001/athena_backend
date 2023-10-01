@@ -11,7 +11,7 @@ module NewsfeedService
     def call
       comment = Comment.find @params[:comment_id]
       @current_workshop = comment.post.workshop
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       comment.destroy!
 

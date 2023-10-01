@@ -10,7 +10,7 @@ module MemberService
 
     def call
       @current_workshop = Workshop.find(@params[:workshop_id])
-      return add_error 'forbidden' unless is_teacher_in_workshop?
+      return add_error 'forbidden' unless teacher_in_workshop?
 
       ids = Member.select('user_id').student.where(workshop_id: @current_workshop.id,
                                                    status: @params[:status]).pluck(:user_id)

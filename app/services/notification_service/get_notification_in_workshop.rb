@@ -10,7 +10,7 @@ module NotificationService
 
     def call
       @current_workshop = Workshop.find @params[:workshop_id]
-      return add_error 'forbidden' unless is_member?
+      return add_error 'forbidden' unless member?
 
       NotificationWorkshop.where(workshop_id: @params[:workshop_id])
     rescue StandardError => e

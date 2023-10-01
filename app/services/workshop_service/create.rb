@@ -9,7 +9,7 @@ module WorkshopService
     end
 
     def call
-      return add_error('forbidden') unless is_teacher?
+      return add_error('forbidden') unless teacher?
 
       ActiveRecord::Base.transaction do
         workshop = Workshop.new(
@@ -42,8 +42,8 @@ module WorkshopService
 
     private
 
-    def is_teacher?
-      RolePolicy.new(auth_context).is_teacher?
+    def teacher?
+      RolePolicy.new(auth_context).teacher?
     end
 
     def generate_code

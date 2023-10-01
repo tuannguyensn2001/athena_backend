@@ -11,7 +11,7 @@ module NewsfeedService
     def call
       post = Post.find(@params[:post_id])
       @current_workshop = post.workshop
-      return add_error 'forbidden' unless is_teacher_in_workshop?
+      return add_error 'forbidden' unless teacher_in_workshop?
 
       post.pinned_at = Time.now
       post.save!
