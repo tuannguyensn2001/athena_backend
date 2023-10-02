@@ -67,3 +67,4 @@ gem 'karafka', '>= 2.2.0'
 gem 'pusher'
 gem 'rubocop'
 gem 'sidekiq'
+gem "sidekiq-cron"
