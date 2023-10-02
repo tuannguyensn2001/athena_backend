@@ -9,6 +9,7 @@ class Workshop < ApplicationRecord
   has_many :members, dependent: :destroy
   has_many :users, through: :members
   has_many :posts, dependent: :destroy
+  has_many :schedules
 
   Workshop.columns.each do |column|
     next unless column.type == :boolean
