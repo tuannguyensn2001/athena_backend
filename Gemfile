@@ -68,3 +68,5 @@ gem 'pusher'
 gem 'rubocop'
 gem 'sidekiq'
 gem "sidekiq-cron"
+
+gem "timecop", "~> 0.9.8"

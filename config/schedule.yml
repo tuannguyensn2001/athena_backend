@@ -1,4 +1,4 @@
-schedule_update_status:
-  cron: "every 1 minute"
-  class: "UpdateStatusScheduleJob"
-  queue: "schedule"
+#schedule_update_status:
+#  cron: "every 1 minute"
+#  class: "UpdateStatusScheduleJob"
+#  queue: "schedule"
