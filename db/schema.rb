@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_02_072309) do
     t.integer "created_by"
     t.datetime "deleted_at", precision: nil
     t.boolean "approve_update_status_automatically"
+    t.integer "parent_id", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

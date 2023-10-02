@@ -11,6 +11,7 @@ class CreateSchedules < ActiveRecord::Migration[7.0]
       t.integer :created_by
       t.timestamp :deleted_at
       t.boolean :approve_update_status_automatically
+      t.integer :parent_id, default: 0
 
       t.timestamps
     end
