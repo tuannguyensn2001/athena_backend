@@ -11,7 +11,8 @@ RSpec.describe ScheduleService::TeacherCreate do
       channel: :offline,
       start: Time.now.to_i, # Time.at(0).to_time(
       minutes: 60,
-      approve_update_status_automatically: false
+      approve_update_status_automatically: false,
+      pattern: :no_repeat
     }
   end
   let(:service) { described_class.new(teacher, params) }

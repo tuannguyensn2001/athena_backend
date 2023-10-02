@@ -7,6 +7,7 @@ class Schedule < ApplicationRecord
 
   belongs_to :workshop
   belongs_to :author, class_name: 'User', foreign_key: 'created_by'
+  has_one :setting, class_name: 'ScheduleSetting', dependent: :destroy
 
   enum channel: {
     offline: 'offline',

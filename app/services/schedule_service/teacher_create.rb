@@ -20,6 +20,9 @@ module ScheduleService
         created_by: @current_user&.id,
         approve_update_status_automatically: @params[:approve_update_status_automatically],
       )
+      schedule.setting = ScheduleSetting.new(
+        pattern: @params[:pattern],
+      )
 
       schedule.save!
 
