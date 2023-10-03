@@ -1,6 +1,7 @@
 module ScheduleService
   class GetInWorkshop < BaseService
     attr_reader :start
+
     def initialize(current_user, params)
       super
       @current_user = current_user
