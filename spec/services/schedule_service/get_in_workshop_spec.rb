@@ -39,12 +39,22 @@ describe ScheduleService::GetInWorkshop do
 
     context 'this_day_next_week' do
       let(:pattern) { :this_day_next_week }
-      context 'in the future' do
+      context 'range in the future' do
         let(:start) {
           result = 1.week.ago
           result.change(hour: 10, min: 0, sec: 0)
           result
         }
+
+        context 'in range' do
+          let(:start) { Time.now }
+
+          it 'returns success' do
+            result = service.call
+            expect(service.success?).to eq(true)
+            expect(result.length).to eq(1)
+          end
+        end
 
         context 'no duplicate' do
           it 'returns success' do
