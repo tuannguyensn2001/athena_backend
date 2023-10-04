@@ -20,4 +20,7 @@ class Schedule < ApplicationRecord
     in_progress: 'in_progress',
     finished: 'finished',
   }
+
+  has_many :schedule_attendances, dependent: :destroy
+  has_many :users, through: :schedule_attendances
 end

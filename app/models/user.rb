@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :followers, dependent: :destroy
 
+  has_many :schedule_attendances, dependent: :destroy
+  has_many :schedules, through: :schedule_attendances
+
   def verified?
     email_verified_at.present?
   end
