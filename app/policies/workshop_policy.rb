@@ -8,4 +8,8 @@ class WorkshopPolicy < ApplicationPolicy
   def teacher?
     Member.where(user_id: current_user.id, workshop_id: current_workshop.id, role: :teacher).present?
   end
+
+  def student?
+    Member.where(user_id: current_user.id, workshop_id: current_workshop.id, role: :student).present?
+  end
 end

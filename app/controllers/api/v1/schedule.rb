@@ -49,6 +49,23 @@ module Api::V1
           error!({ message: service.errors.first }, 400)
         end
       end
+
+      desc 'Student Attendance'
+      params do
+        requires :schedule_id, type: Integer
+        requires :student_id, type: Integer
+      end
+      post :attendances do
+        service = ScheduleService::StudentAttendance.new(current_user, params)
+        service.call
+        if service.success?
+          {
+            message: 'success'
+          }
+        else
+          error!({ message: service.errors.first }, 400)
+        end
+      end
     end
   end
 end
