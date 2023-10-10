@@ -70,3 +70,4 @@ gem 'sidekiq'
 gem "sidekiq-cron"
 
 gem "timecop", "~> 0.9.8"
+gem 'grpc'
