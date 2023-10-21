@@ -78,19 +78,21 @@ services:
       retries: 5
 
   sidekiq:
+    image: tuannguyensn2001/athena:latest
     depends_on:
       - app
-    build:
-      context: .
-      dockerfile: Dockerfile
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
     command:
       - sidekiq
     env_file:
       - .env
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: tuannguyensn2001/athena
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
     ports:
       - "15000:3000"
     command:
