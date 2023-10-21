@@ -81,7 +81,7 @@ services:
     image: tuannguyensn2001/athena:latest
     depends_on:
       - app
-    #    build:
+#    build:
     #      context: .
     #      dockerfile: Dockerfile
     command:

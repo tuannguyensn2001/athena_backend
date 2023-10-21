@@ -26,10 +26,10 @@
 !/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
-#/config/master.key
+/config/master.key
 .idea
 
-/config/credentials/production.key
+#/config/credentials/production.key
 
 /config/credentials/development.key
 
