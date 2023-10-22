@@ -134,9 +134,11 @@ services:
       RAILS_ENV: test
 
   prometheus:
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml
     image: prom/prometheus
-    profiles:
-      - monitoring
+#    profiles:
+#      - monitoring
     ports:
       - "9090:9090"
 

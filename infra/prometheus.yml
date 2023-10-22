@@ -6,6 +6,8 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'my_application'
+  - job_name: 'athena_app'
+    metrics_path: /metrics
     static_configs:
-      - targets: ['localhost:9394']
+      - targets: ['metrics.mistaken.id.vn']
+
