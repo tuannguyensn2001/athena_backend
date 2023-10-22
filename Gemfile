@@ -71,3 +71,5 @@ gem "sidekiq-cron"
 
 gem "timecop", "~> 0.9.8"
 gem 'grpc'
+gem 'prometheus_exporter'
+

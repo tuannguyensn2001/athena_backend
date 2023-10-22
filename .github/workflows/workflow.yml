@@ -115,7 +115,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/ubuntu/athena
+            cd /home/ubuntu/backend
             docker image remove tuannguyensn2001/athena:latest
             docker pull tuannguyensn2001/athena:latest
             docker compose down

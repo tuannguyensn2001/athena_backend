@@ -132,6 +132,12 @@ services:
       REDIS_URL: redis://redis:6379/0
       RAILS_ENV: test
 
+  prometheus:
+    image: prom/prometheus
+    profiles:
+      - monitoring
+    ports:
+      - "9090:9090"
 
 
 
