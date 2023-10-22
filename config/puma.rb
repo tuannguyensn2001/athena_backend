@@ -10,6 +10,12 @@ max_threads_count = ENV.fetch('RAILS_MAX_THREADS', 10)
 min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
+require 'prometheus_exporter/instrumentation'
+PrometheusExporter::Instrumentation::ActiveRecord.start(
+  custom_labels: { type: "puma_single_mode" }, #optional params
+  config_labels: [:database, :host] #optional params
+)
+
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
 # terminating a worker in development environments.
 #
@@ -41,5 +47,14 @@ pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 #
 # preload_app!
 
+after_worker_boot do
+  require 'prometheus_exporter/instrumentation'
+  # optional check, avoids spinning up and down threads per worker
+  if !PrometheusExporter::Instrumentation::Puma.started?
+    PrometheusExporter::Instrumentation::Puma.start
+  end
+end
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+
+
