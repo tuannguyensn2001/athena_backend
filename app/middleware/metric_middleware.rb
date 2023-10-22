@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'prometheus_exporter/middleware'
+
 class MetricMiddleware < PrometheusExporter::Middleware
   def default_labels(env, result)
     status = (result && result[0]) || -1
