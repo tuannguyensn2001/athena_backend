@@ -50,30 +50,30 @@ jobs:
         run: bundle exec rails db:setup
       - name: run test
         run: bundle exec rspec
-#  rubocop:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#        name: Checkout
-#      - name: setup ruby
-#        uses: ruby/setup-ruby@v1
-#        with:
-#          ruby-version: 3.2.2
-#      - name: install bundler
-#        run: gem install bundler
-#      - name: cache
-#        uses: actions/cache@v3
-#        with:
-#          path: vendor/bundle
-#          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-gems-
-#      - name: install dependencies
-#        run: |
-#          bundle config path vendor/bundle
-#          bundle install --jobs 4 --retry 3
-#      - name: run rubocop
-#        run: bundle exec rubocop --auto-correct-all app
+  #  rubocop:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #        name: Checkout
+  #      - name: setup ruby
+  #        uses: ruby/setup-ruby@v1
+  #        with:
+  #          ruby-version: 3.2.2
+  #      - name: install bundler
+  #        run: gem install bundler
+  #      - name: cache
+  #        uses: actions/cache@v3
+  #        with:
+  #          path: vendor/bundle
+  #          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #          restore-keys: |
+  #            ${{ runner.os }}-gems-
+  #      - name: install dependencies
+  #        run: |
+  #          bundle config path vendor/bundle
+  #          bundle install --jobs 4 --retry 3
+  #      - name: run rubocop
+  #        run: bundle exec rubocop --auto-correct-all app
 
   build:
     name: Build
@@ -101,5 +101,25 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/athena
       - name: Verify
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  push:
+    runs-on: ubuntu-latest
+    name: Push
+    needs: build
+    environment: staging
+    steps:
+      - uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ubuntu/athena
+            docker image remove tuannguyensn2001/athena:latest
+            docker pull tuannguyensn2001/athena:latest
+            docker-compose down
+            docker-compose up -d
+
 
 

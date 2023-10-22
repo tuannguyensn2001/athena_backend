@@ -78,10 +78,14 @@ services:
       retries: 5
 
   sidekiq:
+    deploy:
+      resources:
+        limits:
+          memory: '100M'
     image: tuannguyensn2001/athena:latest
     depends_on:
       - app
-#    build:
+    #    build:
     #      context: .
     #      dockerfile: Dockerfile
     command:
@@ -89,7 +93,14 @@ services:
     env_file:
       - .env
   app:
-    image: tuannguyensn2001/athena
+    deploy:
+      resources:
+        limits:
+          memory: '100M'
+    image: tuannguyensn2001/athena:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
     #    build:
     #      context: .
     #      dockerfile: Dockerfile
@@ -101,12 +112,15 @@ services:
       - .env
 
   test:
+    profiles:
+      - test
+    image: tuannguyensn2001/athena:latest
     depends_on:
       postgres:
         condition: service_healthy
-    build:
-      context: .
-      dockerfile: Dockerfile
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
     command:
       - test
     environment:
