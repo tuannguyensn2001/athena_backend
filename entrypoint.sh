@@ -7,7 +7,8 @@ case "$1" in
     echo $DATABASE_PASSWORD
     echo $RAILS_ENV
     bundle exec rails db:migrate
-    bundle exec rails s
+    /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+#    bundle exec rails s
     ;;
   "test")
       echo $DATABASE_HOST
@@ -20,7 +21,7 @@ case "$1" in
     ;;
   "sidekiq")
     bundle exec rails db:migrate
-    bundle exec sidekiq
+#    bundle exec sidekiq
     ;;
   *)
     exec "$@"
