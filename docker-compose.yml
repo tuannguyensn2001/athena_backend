@@ -78,12 +78,10 @@ services:
       retries: 5
 
   sidekiq:
-    profiles:
-      - test
-    deploy:
-      resources:
-        limits:
-          memory: '100M'
+    #    deploy:
+    #      resources:
+    #        limits:
+    #          memory: '100M'
     image: tuannguyensn2001/athena:latest
     depends_on:
       - app
@@ -103,16 +101,22 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
     ports:
       - "5000:3000"
-      - "9394:9394"
     command:
       - rails
     env_file:
       - .env
+
+  metrics:
+    image: tuannguyensn2001/athena:latest
+    ports:
+      - "9394:9394"
+    command:
+      - metrics
 
   test:
     profiles:
