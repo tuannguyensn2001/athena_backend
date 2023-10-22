@@ -106,17 +106,11 @@ services:
     #      dockerfile: Dockerfile
     ports:
       - "5000:3000"
+      - "9394:9394"
     command:
       - rails
     env_file:
       - .env
-
-  metrics:
-    image: tuannguyensn2001/athena:latest
-    ports:
-      - "9394:9394"
-    command:
-      - metrics
 
   test:
     profiles:
