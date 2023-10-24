@@ -1,0 +1,2 @@
+class TargetGroup < ApplicationRecord
+end

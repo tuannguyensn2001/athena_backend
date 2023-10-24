@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_04_085341) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_24_160708) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_085341) do
     t.integer "post_id"
     t.string "content"
     t.datetime "deleted_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "custom_attributes", force: :cascade do |t|
+    t.string "name"
+    t.string "target_type"
+    t.string "data_type"
+    t.string "description"
+    t.boolean "visible"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -106,6 +116,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_085341) do
     t.datetime "deleted_at", precision: nil
     t.boolean "approve_update_status_automatically"
     t.integer "parent_id", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "target_groups", force: :cascade do |t|
+    t.string "name"
+    t.string "target_type"
+    t.string "description"
+    t.json "conditions"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "target_objects", force: :cascade do |t|
+    t.string "type"
+    t.string "status"
+    t.string "target_id"
+    t.json "tags"
+    t.json "attributes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
