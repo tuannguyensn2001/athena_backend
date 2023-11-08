@@ -357,6 +357,7 @@ DEPENDENCIES
   grape (~> 1.8)
   grape_on_rails_routes
   grpc
+  json-schema
   jwt
   karafka (>= 2.2.0)
   kredis

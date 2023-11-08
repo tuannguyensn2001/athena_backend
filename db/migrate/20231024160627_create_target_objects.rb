@@ -3,7 +3,7 @@ class CreateTargetObjects < ActiveRecord::Migration[7.0]
     create_table :target_objects do |t|
       t.string :type
       t.string :status
-      t.string :target_id
+      t.integer :target_id
       t.json :tags
       t.json :attributes
 

@@ -11,11 +11,19 @@ class Workshop < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :schedules
 
+  enum subscription_plan: SubscriptionPlan::PLAN
+
+  after_commit :sync_target_object
+
   Workshop.columns.each do |column|
     next unless column.type == :boolean
 
     define_method "#{column.name}?" do
       send(column.name)
     end
+  end
+
+  def sync_target_object
+    SyncTargetObjectJob.perform_later("Workshop", id)
   end
 end

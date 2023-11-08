@@ -36,6 +36,25 @@ module Api
             data: result
           }
         end
+
+        desc 'Create target group'
+        params do
+          requires :name, type: String, desc: 'Name of the target group'
+          requires :target_type, type: String, desc: 'Target type of the target group'
+          optional :description, type: String, desc: 'Description of the target group'
+          requires :conditions, type: Hash, desc: 'Conditions of the target group'
+        end
+        post :target_groups do
+          service = FeatureFlagService::CreateTargetGroup.new(params)
+          service.call
+          if service.success?
+            {
+              message: 'success'
+            }
+          else
+            error!({ message: service.errors.first }, 400)
+          end
+        end
       end
     end
   end

@@ -15,5 +15,6 @@ FactoryBot.define do
     subject { 'MyString' }
     grade { 'MyString' }
     is_lock { false }
+    subscription_plan { 'free' }
   end
 end

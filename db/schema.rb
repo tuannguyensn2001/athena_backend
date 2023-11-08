@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_24_160708) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_08_145810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,11 +130,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_160708) do
   end
 
   create_table "target_objects", force: :cascade do |t|
-    t.string "type"
+    t.string "target_type"
     t.string "status"
-    t.string "target_id"
+    t.integer "target_id"
     t.json "tags"
-    t.json "attributes"
+    t.json "properties"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -165,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_24_160708) do
     t.boolean "is_lock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "subscription_plan"
   end
 
 end

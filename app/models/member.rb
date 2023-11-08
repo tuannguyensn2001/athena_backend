@@ -16,6 +16,7 @@ class Member < ApplicationRecord
 
   after_commit :run_job_sync_follower
 
+
   def run_job_sync_follower
     SyncMemberToFollowerJob.perform_later attributes
   end

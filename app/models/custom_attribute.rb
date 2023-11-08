@@ -4,7 +4,8 @@ class CustomAttribute < ApplicationRecord
 
   enum target_type: {
     user: 'user',
-    workshop: 'workshop'
+    workshop: 'workshop',
+    member: 'member'
   }
 
   enum data_type: {

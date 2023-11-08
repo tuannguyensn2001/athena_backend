@@ -25,7 +25,8 @@ module WorkshopService
           is_show: true,
           subject: @params[:subject],
           grade: @params[:grade],
-          is_lock: false
+          is_lock: false,
+          subscription_plan: 'free'
         )
         workshop.save!
         member = Member.new(
