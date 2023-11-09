@@ -74,3 +74,9 @@ gem 'grpc'
 gem 'prometheus_exporter'
 gem "json-schema"
 
+
+gem "opentelemetry-sdk", "~> 1.3"
+gem "opentelemetry-instrumentation-all", "~> 0.51.1"
+
+gem "opentelemetry-exporter-otlp", "~> 0.26.1"
+gem "opentelemetry-instrumentation-active_record"
