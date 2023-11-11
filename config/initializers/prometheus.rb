@@ -4,7 +4,9 @@ if Rails.env.production?
 
   # This reports stats per request like HTTP status and timings
 
-  Rails.application.middleware.unshift MetricMiddleware
+  # Rails.application.middleware.unshift MetricMiddleware
+  Rails.application.middleware.unshift PrometheusExporter::Middleware
+
 end
 
 
