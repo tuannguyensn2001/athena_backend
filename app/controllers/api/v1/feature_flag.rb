@@ -1,6 +1,8 @@
 module Api
   module V1
     class FeatureFlag < Grape::API
+      include Api::Authentication
+
       version 'v1', using: :path
 
       resource :feature_flag do
@@ -22,6 +24,21 @@ module Api
           else
             error!({ message: service.errors.first }, 400)
           end
+        end
+
+        desc 'Get custom attributes'
+        params do
+          optional :visible, type: Boolean, desc: 'Visibility of the attribute'
+        end
+        get :custom_attribute do
+          result = CustomAttribute
+          result = result.where(visible: params[:visible]) unless params[:visible].nil?
+          output = result.all || []
+
+          {
+            message: 'success',
+            data: output
+          }
         end
 
         desc 'Get operator'

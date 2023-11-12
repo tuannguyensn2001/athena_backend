@@ -20,6 +20,10 @@ module Api
           @current_user
         end
 
+        def is_admin
+          @current_user.is_admin
+        end
+
         def auth_context
           workshop = Workshop.where(id: params[:workshop_id]).first
           @auth_context ||= AuthContext.new(user: current_user, workshop: workshop)
