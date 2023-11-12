@@ -20,6 +20,11 @@ module Api
           @current_user
         end
 
+        def auth_context
+          workshop = Workshop.where(id: params[:workshop_id]).first
+          @auth_context ||= AuthContext.new(user: current_user, workshop: workshop)
+        end
+
         def token_from_header
           raw = request.headers['Authorization']
           return nil if raw.nil?

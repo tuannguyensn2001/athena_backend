@@ -8,6 +8,12 @@ class BaseService
     @current_user = nil
   end
 
+  def set_auth_context(auth_context)
+    @auth_context = auth_context
+    @current_workshop = auth_context.workshop
+    @current_user = auth_context.user
+  end
+
   def add_error(error)
     if error.is_a?(Array)
       error.each do |e|
@@ -33,6 +39,8 @@ class BaseService
   private
 
   def auth_context
+    return @auth_context if defined? @auth_context
+
     AuthContext.new(user: current_user, workshop: current_workshop)
   end
 

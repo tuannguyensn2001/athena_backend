@@ -38,7 +38,7 @@ module Api
             optional :is_pinned, type: Boolean, desc: 'Pinned', default: false
           end
           get 'workshops/:workshop_id' do
-            service = NewsfeedService::GetPostInWorkshop.new(current_user, params)
+            service = NewsfeedService::GetPostInWorkshop.new(auth_context, params)
             result = service.call
             if service.success?
               {

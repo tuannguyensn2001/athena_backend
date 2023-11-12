@@ -55,6 +55,25 @@ module Api
             error!({ message: service.errors.first }, 400)
           end
         end
+
+        desc 'Create feature flag'
+        params do
+          requires :code, type: String, desc: 'Code of the feature flag'
+          requires :state, type: String, desc: 'Status of the feature flag'
+          requires :target_type, type: String, desc: 'Target type of the feature flag'
+          optional :conditions, type: Hash, desc: 'Conditions of the feature flag'
+        end
+        post do
+          service = FeatureFlagService::CreateFeatureFlag.new(params)
+          service.call
+          if service.success?
+            {
+              message: 'success'
+            }
+          else
+            error!({ message: service.errors.first }, 400)
+          end
+        end
       end
     end
   end

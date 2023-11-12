@@ -4,6 +4,9 @@ class TargetObject < ApplicationRecord
   # validates :tags, presence: true
   validates :properties, presence: true
 
+  has_many :feature_flag_objects, dependent: :destroy
+  has_many :feature_flags, through: :feature_flag_objects
+
   enum target_type: {
     workshop: 'workshop',
     user: 'user',
