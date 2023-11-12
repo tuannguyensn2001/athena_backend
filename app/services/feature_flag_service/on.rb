@@ -20,7 +20,16 @@ module FeatureFlagService
         ).first.present?
       end
 
-      false
+      conditions = feature_flag.conditions.deep_symbolize_keys
+      return false unless conditions.present? && conditions.is_a?(Hash)
+
+      condition_if = conditions[:if]
+      found_condition = condition_if.find { |item| check_target_groups(item[:operator], item[:list], target_object) }
+      if found_condition.present?
+        found_condition[:value]
+      else
+        conditions[:else]
+      end
     end
 
     def get_target_object(feature_flag)
@@ -39,6 +48,23 @@ module FeatureFlagService
       end
 
       raise StandardError, 'Target type not found'
+    end
+
+    def check_target_groups(operator, target_groups, target_object)
+      marked = []
+
+      target_groups.each do |code|
+        target_group = TargetGroup.where(name: code).first
+        marked << false unless target_group.present?
+        service = FeatureFlagService::CheckTargetGroup.new(target_group, target_object)
+        marked << service.call
+      end
+
+      if operator == 'and'
+        marked.all?(true)
+      else
+        marked.any?(true)
+      end
     end
   end
 end

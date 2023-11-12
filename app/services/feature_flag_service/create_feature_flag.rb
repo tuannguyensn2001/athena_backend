@@ -11,7 +11,7 @@ module FeatureFlagService
         description: @params[:description],
         state: @params[:state],
         target_type: @params[:target_type],
-        condition: @params[:condition],
+        conditions: @params[:conditions],
       )
       add_error(feature_flag.errors.full_messages) unless feature_flag.save
     end

@@ -4,6 +4,6 @@ FactoryBot.define do
     description { "MyString" }
     sequence(:state) { %i[released open_beta closed_beta] }
     sequence(:target_type) { %i[workshop user member].sample }
-    condition { nil }
+    conditions { nil }
   end
 end
