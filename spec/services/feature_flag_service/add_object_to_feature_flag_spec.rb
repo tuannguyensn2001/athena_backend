@@ -2,7 +2,8 @@
 require 'rails_helper'
 
 describe FeatureFlagService::AddObjectToFeatureFlag do
-  let(:feature_flag) { FactoryBot.create(:feature_flag, code: 'exercise', target_type: 'workshop', state: 'open_beta') }
+  let(:feature_flag) {
+ FactoryBot.create(:feature_flag, code: 'exercise', target_type: 'workshop', state: 'open_beta', conditions: nil) }
   let(:target_object) { FactoryBot.create(:target_object, target_type: 'workshop') }
   let(:params) do
     {

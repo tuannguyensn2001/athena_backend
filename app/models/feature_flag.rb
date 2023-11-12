@@ -53,6 +53,6 @@ class FeatureFlag < ApplicationRecord
       }
     }
 
-    errors.add(:conditions, 'is not valid') unless conditions.present? && JSON::Validator.validate(schema, conditions)
+    errors.add(:conditions, 'is not valid') if conditions.present? && !JSON::Validator.validate(schema, conditions)
   end
 end
