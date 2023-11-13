@@ -77,21 +77,21 @@ services:
       timeout: 5s
       retries: 5
 
-#  sidekiq:
-  #    #    deploy:
-  #    #      resources:
-  #    #        limits:
-  #    #          memory: '100M'
-  #    image: tuannguyensn2001/athena:latest
-  #    depends_on:
-  #      - app
-  #    #    build:
-  #    #      context: .
-  #    #      dockerfile: Dockerfile
-  #    command:
-  #      - sidekiq
-  #    env_file:
-  #      - .env
+  sidekiq:
+    #    deploy:
+    #      resources:
+    #        limits:
+    #          memory: '100M'
+    image: tuannguyensn2001/athena:latest
+    depends_on:
+      - app
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    command:
+      - sidekiq
+    env_file:
+      - .env
   app:
     #    deploy:
     #      resources:

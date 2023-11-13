@@ -18,6 +18,24 @@ describe FeatureFlagService::On do
       "else": true
     }
   end
+  let!(:attribute) do
+    FactoryBot.create(
+      :custom_attribute,
+      name: 'subscription_plan',
+      target_type: 'workshop',
+      data_type: 'string',
+      visible: true
+    )
+  end
+  let!(:attribute2) do
+    FactoryBot.create(
+      :custom_attribute,
+      name: 'id',
+      target_type: 'workshop',
+      data_type: 'integer',
+      visible: true
+    )
+  end
   let!(:target_group) do
     FactoryBot.create(:target_group,
                       name: 'subscription_plan',
