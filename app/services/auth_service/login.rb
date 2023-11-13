@@ -27,6 +27,8 @@ module AuthService
       }
       token = JWT.encode payload, @secret_key, 'HS256'
 
+      NotifyLoginJob.perform_later
+
       {
         access_token: token
       }

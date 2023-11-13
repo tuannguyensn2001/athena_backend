@@ -3,6 +3,24 @@ require 'rails_helper'
 
 describe FeatureFlagService::CheckTargetGroup do
   let(:workshop_id) { 1 }
+  let!(:attribute) {
+    FactoryBot.create(
+      :custom_attribute,
+      name: 'subscription_plan',
+      target_type: 'workshop',
+      data_type: 'string',
+      visible: true
+    )
+  }
+  let!(:attribute2) {
+    FactoryBot.create(
+      :custom_attribute,
+      name: 'id',
+      target_type: 'workshop',
+      data_type: 'string',
+      visible: true
+    )
+  }
   let(:target_object) do
     FactoryBot.create(:target_object,
                       target_type: 'workshop',

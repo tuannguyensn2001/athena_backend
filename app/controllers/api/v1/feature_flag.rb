@@ -33,11 +33,37 @@ module Api
         get :custom_attribute do
           result = CustomAttribute
           result = result.where(visible: params[:visible]) unless params[:visible].nil?
-          output = result.all || []
+          output = result.order(:id).all || []
 
           {
             message: 'success',
             data: output
+          }
+        end
+
+        desc 'Get detail custom attribute'
+        params do
+          requires :id, type: Integer, desc: 'Id of the attribute'
+        end
+        get 'custom_attribute/:id' do
+          result = CustomAttribute.find(params[:id])
+
+          {
+            message: 'success',
+            data: result
+          }
+        end
+
+        desc 'Update custom attribute'
+        params do
+          requires :id, type: Integer, desc: 'Id of the attribute'
+          requires :description, type: String, desc: 'Description of the attribute'
+        end
+        put 'custom_attribute/:id' do
+          attribute = CustomAttribute.find(params[:id])
+          attribute.update(description: params[:description])
+          {
+            message: 'success'
           }
         end
 
