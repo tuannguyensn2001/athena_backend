@@ -39,6 +39,6 @@ class TargetGroup < ApplicationRecord
       },
       "required": %w[operator list]
     }
-    errors.add(:conditions, 'is not valid') unless JSON::Validator.validate(schema, conditions)
+    errors.add(:conditions, 'is not valid') if conditions.present? && !JSON::Validator.validate(schema, conditions)
   end
 end

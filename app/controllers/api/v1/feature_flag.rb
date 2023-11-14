@@ -33,6 +33,7 @@ module Api
         get :custom_attribute do
           result = CustomAttribute
           result = result.where(visible: params[:visible]) unless params[:visible].nil?
+          result = result.where(target_type: params[:target_type]) unless params[:target_type].nil?
           output = result.order(:id).all || []
 
           {
@@ -62,6 +63,18 @@ module Api
         put 'custom_attribute/:id' do
           attribute = CustomAttribute.find(params[:id])
           attribute.update(description: params[:description])
+          {
+            message: 'success'
+          }
+        end
+
+        desc 'Toggle custom attribute'
+        params do
+          requires :id, type: Integer, desc: 'Id of the attribute'
+        end
+        patch 'custom_attribute/:id/toggle' do
+          attribute = CustomAttribute.find(params[:id])
+          attribute.update(visible: !attribute.visible)
           {
             message: 'success'
           }
