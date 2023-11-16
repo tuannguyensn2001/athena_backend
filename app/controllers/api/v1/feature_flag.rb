@@ -112,6 +112,39 @@ module Api
           end
         end
 
+        desc 'Get all target groups'
+        get 'target_groups' do
+          result = TargetGroup.order(:id).all || []
+          {
+            message: 'success',
+            data: result
+          }
+        end
+
+        desc 'Get detail target group'
+        params do
+          requires :id, type: Integer, desc: 'Id of the target group'
+        end
+        get 'target_groups/:id' do
+          result = TargetGroup.find(params[:id])
+          {
+            message: 'success',
+            data: result
+          }
+        end
+
+        desc 'Update target group'
+        params do
+          requires :conditions, type: Hash, desc: 'Conditions of the target group'
+        end
+        put 'target_groups/:id' do
+          target_group = TargetGroup.find(params[:id])
+          target_group.update(conditions: params[:conditions])
+          {
+            message: 'success'
+          }
+        end
+
         desc 'Create feature flag'
         params do
           requires :code, type: String, desc: 'Code of the feature flag'
