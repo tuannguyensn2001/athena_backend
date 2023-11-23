@@ -30,7 +30,7 @@ module FeatureFlagService
 
     def check_condition(condition)
       attribute = CustomAttribute.where(name: condition[:field], target_type: @target_group.target_type).first
-      return true unless attribute.visible
+      return true unless attribute&.visible
 
       field = condition[:field]
       operator = condition[:operator]
